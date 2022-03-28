@@ -10,6 +10,7 @@ from demo_net import demo
 from test_net import test
 from train_net import train
 from visualization import visualize
+import torch
 
 
 def main():
@@ -41,4 +42,5 @@ def main():
 
 
 if __name__ == "__main__":
+    # torch.cuda.set_per_process_memory_fraction(0.8)
     main()

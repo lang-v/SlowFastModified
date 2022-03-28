@@ -5,7 +5,8 @@ TRAIN:
   EVAL_PERIOD: 1
   CHECKPOINT_PERIOD: 1
   AUTO_RESUME: True
-  CHECKPOINT_FILE_PATH: ./SLOWFAST_32x2_R101_50_50.pkl  #path to pretrain model
+  # 刚刚下载的官方权重文件的路径
+  CHECKPOINT_FILE_PATH: 'D:\Python\projects\SlowFast\demo\AVA\SLOWFAST_32x2_R101_50_50.pkl'  #path to pretrain model
   CHECKPOINT_TYPE: pytorch
 DATA:
   NUM_FRAMES: 32
@@ -67,12 +68,18 @@ NUM_GPUS: 1
 NUM_SHARDS: 1
 RNG_SEED: 0
 OUTPUT_DIR: .
-TENSORBOARD:
-  MODEL_VIS:
-    TOPK: 2
+#TENSORBOARD:
+#  MODEL_VIS:
+#    TOPK: 2
 DEMO:
   ENABLE: True
-  LABEL_FILE_PATH:  # Add local label file path here.
-  WEBCAM: 0
-  DETECTRON2_CFG: "COCO-Detection/faster_rcnn_R_50_FPN_3x.yaml"
-  DETECTRON2_WEIGHTS: detectron2://COCO-Detection/faster_rcnn_R_50_FPN_3x/137849458/model_final_280758.pkl
+  LABEL_FILE_PATH: "../demo/AVA/ava.json" #刚刚生成的label文件
+#  WEBCAM: 0
+  INPUT_VIDEO: "../input/2.mp4"#视频输入路径
+  OUTPUT_FILE: "../output/2.mp4"#视频输出路径
+  FPS: 1
+  DISPLAY_WIDTH: 112
+  # Custom height for reading input video data.
+  DISPLAY_HEIGHT: 112
+#  DETECTRON2_CFG: "COCO-Detection/faster_rcnn_R_50_FPN_3x.yaml"
+#  DETECTRON2_WEIGHTS: detectron2://COCO-Detection/faster_rcnn_R_50_FPN_3x/137849458/model_final_280758.pkl
