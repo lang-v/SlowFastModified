@@ -93,7 +93,7 @@ def run_demo(cfg, frame_provider):
             continue
 
 
-def demo(cfg):
+def demo(cfg, task_queue=None):
     """
     Run inference on an input video or stream from webcam.
     Args:
@@ -110,10 +110,12 @@ def demo(cfg):
             frame_provider = ThreadVideoManager(cfg)
         else:
             frame_provider = VideoManager(cfg)
-
         for task in tqdm.tqdm(run_demo(cfg, frame_provider)):
-            frame_provider.display(task)
+            # 这里不再输出到文件或者cv.imshow；直接传递岛flask.app中
+            for f in task.frames[task.num_buffer_frames:]:
+                task_queue.put(f)
+            # frame_provider.display(task)
 
-        frame_provider.join()
-        frame_provider.clean()
+        # frame_provider.join()
+        # frame_provider.clean()
         logger.info("Finish demo in: {}".format(time.time() - start))

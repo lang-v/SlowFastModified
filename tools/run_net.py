@@ -6,20 +6,29 @@ from slowfast.config.defaults import assert_and_infer_cfg
 from slowfast.utils.misc import launch_job
 from slowfast.utils.parser import load_config, parse_args
 
-from demo_net import demo
-from test_net import test
-from train_net import train
-from visualization import visualize
-import torch
+from tools.demo_net import demo
+from tools.test_net import test
+from tools.train_net import train
+from tools.visualization import visualize
 
 
-def main():
+def main(source_path=None, task_queue=None):
     """
     Main function to spawn the train and test process.
+    @param callback 当计算完成后通过此方法将视频帧返回
     """
     args = parse_args()
     cfg = load_config(args)
     cfg = assert_and_infer_cfg(cfg)
+
+    # 动态设置视频输入源
+    if source_path is not None:
+        cfg.WEBCAM = -1
+        cfg.DEMO.INPUT_VIDEO = source_path
+
+    if source_path == '0':
+        cfg.WEBCAM = 1
+        print("run_net:on webcam {}".format(source_path))
 
     # Perform training.
     if cfg.TRAIN.ENABLE:
@@ -38,7 +47,7 @@ def main():
 
     # Run demo.
     if cfg.DEMO.ENABLE:
-        demo(cfg)
+        demo(cfg, task_queue)
 
 
 if __name__ == "__main__":

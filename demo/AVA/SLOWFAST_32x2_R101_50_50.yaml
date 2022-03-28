@@ -75,9 +75,9 @@ DEMO:
   ENABLE: True
   LABEL_FILE_PATH: "../demo/AVA/ava.json" #刚刚生成的label文件
 #  WEBCAM: 0
-  INPUT_VIDEO: "../input/3.mp4"#视频输入路径
-  OUTPUT_FILE: "../output/3.mp4"#视频输出路径
-  FPS: 5 #每秒读取输入视频帧率
+#  INPUT_VIDEO: "../input/fight.mp4"#视频输入路径
+#  OUTPUT_FILE: "../output/fight.mp4"#视频输出路径
+#  FPS: 2 #每秒读取输入视频帧率
   # Custom height for reading input video data.
   DETECTRON2_CFG: "COCO-Detection/faster_rcnn_R_50_FPN_3x.yaml"
   DETECTRON2_WEIGHTS: detectron2://COCO-Detection/faster_rcnn_R_50_FPN_3x/137849458/model_final_280758.pkl
