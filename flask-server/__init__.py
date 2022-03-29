@@ -1,8 +1,11 @@
 import os.path
 import time
+from datetime import datetime
 
 import cv2
-from flask import Flask, Response, request, send_from_directory, abort
+import flask
+from flask_rangerequest import RangeRequest
+from flask import Flask, Response, request, send_from_directory, abort, send_file, render_template
 
 from source_queue import SourceManager
 
@@ -119,8 +122,10 @@ def video():
     else:
         source_path = request.args.get("source")
 
-    if os.path.isfile("static/output/{}".format(source_path)):
-        return send_from_directory("static/output/", source_path)
+    file = "output/{}".format(source_path)
+    if os.path.isfile(file):
+        return send_from_directory("output/",source_path)
+        # return render_template("video_play.html", source=file)
 
     abort(404)
 

@@ -19,7 +19,7 @@ class SourceState(Enum):
 class SourceQueue:
     def __init__(self, path, info):
         # self.queue = []
-        self.output_path = "static/output/"
+        self.output_path = "output/"
 
         self.video_filename = path
         self.video_preds_filename = path + ".json"
@@ -48,7 +48,7 @@ class SourceQueue:
         self.process_task = task
 
     def write_frames(self, frames):
-        fourcc = cv2.VideoWriter_fourcc(*'MP4V')  # 视频编解码器
+        fourcc = cv2.VideoWriter_fourcc(*'MP42')  # 视频编解码器
         if self.video_os is None:
             self.video_os = cv2.VideoWriter("{}{}".format(self.output_path, self.video_filename),
                                             fourcc, int(self.video_info['fps']),
@@ -109,8 +109,8 @@ class SourceQueue:
 
 def check_computed(path):
     # 判断是否已经计算过了
-    real_video = "static/output/{}".format(path)
-    real_preds_info = "static/output/{}.json".format(path)
+    real_video = "output/{}".format(path)
+    real_preds_info = "output/{}.json".format(path)
     return os.path.exists(real_video) and os.path.exists(real_preds_info)
 
 
