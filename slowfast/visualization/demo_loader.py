@@ -36,7 +36,7 @@ class VideoManager:
         self.display_width = cfg.DEMO.DISPLAY_WIDTH
         self.display_height = cfg.DEMO.DISPLAY_HEIGHT
 
-        self.cap = cv2.VideoCapture(self.source)
+        self.cap = cv2.VideoCapture("input/"+self.source)
 
         if self.display_width > 0 and self.display_height > 0:
             self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, self.display_width)

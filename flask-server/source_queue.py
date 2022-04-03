@@ -124,16 +124,17 @@ class SourceManager:
         self.threadpool = ThreadPoolExecutor(max_workers=1, thread_name_prefix="SlowFast")
         self.source_map = {}
 
-    def get_or_create(self, source, fps):
+    def get_or_create(self, source, info):
         if self.source_map.get(source) is not None:
             if source == '0':
                 try:
+                    # 二次打开摄像头，就关闭摄像头
                     self.source_map[source].process_task.cancel()
                 except BaseException:
                     return self.source_map[source]
 
             queue = self.source_map[source]
-            #     重新计算
+            #    检查是否需要 重新计算
             if not check_computed(source):
                 # 就算是在内存中存在，也可能出现导出的视频文件已经删除了
                 args = [source, queue]
@@ -144,7 +145,7 @@ class SourceManager:
 
             return source
         else:
-            queue = SourceQueue(source, fps)
+            queue = SourceQueue(source, info)
         self.source_map[source] = queue
 
         if not check_computed(source):
@@ -153,4 +154,6 @@ class SourceManager:
             task = self.threadpool.submit(lambda p: run_net.main(*p), args)
             queue.set_task(task)
             # run_net.main(source, queue)
+        else:
+            queue.state = SourceState.READY
         return queue
