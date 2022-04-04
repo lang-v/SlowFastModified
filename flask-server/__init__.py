@@ -104,6 +104,8 @@ def detect():
     }
     print("<video info> fps:{};load in {}".format(12, source_path))
     queue = source_manager.get_or_create(source_path, info)
+    print(queue)
+    print(queue.state)
 
     return {
         "info": info,

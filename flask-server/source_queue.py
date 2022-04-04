@@ -140,10 +140,11 @@ class SourceManager:
                 args = [source, queue]
                 task = self.threadpool.submit(lambda p: run_net.main(*p), args)
                 queue.set_task(task)
+                queue.state = SourceState.PREPARING
             else:
                 queue.state = SourceState.READY
 
-            return source
+            return queue
         else:
             queue = SourceQueue(source, info)
         self.source_map[source] = queue
