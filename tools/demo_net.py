@@ -117,23 +117,23 @@ def demo(cfg, source_queue=None):
             # 这里不再输出到文件或者cv.imshow；直接传递岛flask.app中
             # for f in task.frames[task.num_buffer_frames:]:
             #     task_queue.put(f)
-            # frame_provider.display(task)
-            source_queue.write_frames(task.frames[task.num_buffer_frames:])
+            frame_provider.display(task)
+            # source_queue.write_frames(task.frames[task.num_buffer_frames:])
+            #
+            # sec_per_task = len(task.frames) / source_queue.video_info['fps']
+            #
+            # preds_per_task = []
+            # for preds in task.action_preds:
+            #     max_index = np.argmax(preds).item()
+            #     value = int(preds[max_index]*100)
+            #     preds_per_task.append((max_index, value))
+            #
+            # t = task.id * sec_per_task
+            # item = (t, preds_per_task)
+            # time_preds.append(item)
 
-            sec_per_task = len(task.frames) / source_queue.video_info['fps']
-
-            preds_per_task = []
-            for preds in task.action_preds:
-                max_index = np.argmax(preds).item()
-                value = int(preds[max_index]*100)
-                preds_per_task.append((max_index, value))
-
-            t = task.id * sec_per_task
-            item = (t, preds_per_task)
-            time_preds.append(item)
-
-        source_queue.write_preds_info(time_preds)
-        source_queue.flush()
+        # source_queue.write_preds_info(time_preds)
+        # source_queue.flush()
         # frame_provider.join()
         # frame_provider.clean()
         logger.info("Finish demo in: {}".format(time.time() - start))

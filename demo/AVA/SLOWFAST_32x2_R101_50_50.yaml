@@ -74,7 +74,7 @@ OUTPUT_DIR: .
 DEMO:
   ENABLE: True
   LABEL_FILE_PATH: "../demo/AVA/ava.json" #刚刚生成的label文件
-#  WEBCAM: 0
+  WEBCAM: 0
 #  INPUT_VIDEO: "../input/fight.mp4"#视频输入路径
 #  OUTPUT_FILE: "../output/fight.mp4"#视频输出路径
 #  FPS: 2 #每秒读取输入视频帧率

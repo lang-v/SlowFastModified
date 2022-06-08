@@ -30,13 +30,13 @@ class VideoManager:
         ), "Must specify a data source as input."
 
         self.source = (
-            cfg.DEMO.WEBCAM if cfg.DEMO.WEBCAM > -1 else cfg.DEMO.INPUT_VIDEO
+            cfg.DEMO.WEBCAM if cfg.DEMO.WEBCAM > -1 else "input/"+cfg.DEMO.INPUT_VIDEO
         )
 
         self.display_width = cfg.DEMO.DISPLAY_WIDTH
         self.display_height = cfg.DEMO.DISPLAY_HEIGHT
 
-        self.cap = cv2.VideoCapture("input/"+self.source)
+        self.cap = cv2.VideoCapture(self.source)
 
         if self.display_width > 0 and self.display_height > 0:
             self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, self.display_width)
@@ -121,9 +121,14 @@ class VideoManager:
                 the necessary information for prediction visualization. (e.g. visualized frames.)
         """
         for frame in task.frames[task.num_buffer_frames :]:
+            # print('保存图片')
             if self.output_file is None:
+                # time.sleep(1 / self.output_fps)
+                # cv2.imwrite(time.time_ns().__str__()+".jpg",frame)
                 cv2.imshow("SlowFast", frame)
-                time.sleep(1 / self.output_fps)
+                cv2.waitKey(30)
+                # cv2.waitKey()
+                # cv2.destroyAllWindows()
             else:
                 self.output_file.write(frame)
 
@@ -316,9 +321,11 @@ class ThreadVideoManager:
 
             with self.output_lock:
                 for frame in task.frames[task.num_buffer_frames :]:
+                    print('保存图片')
                     if self.output_file is None:
-                        cv2.imshow("SlowFast", frame)
                         time.sleep(1 / self.output_fps)
+                        # cv2.imwrite(time.time_ns()+".jpg",frame)
+                        cv2.imshow("SlowFast", frame)
                     else:
                         self.output_file.write(frame)
 

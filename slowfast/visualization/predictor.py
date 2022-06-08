@@ -31,11 +31,11 @@ class Predictor:
         """
         # torch.cuda.set_device(torch.device("cpu"))
         self.gpu_id = (torch.device("cpu"))
-        # if cfg.NUM_GPUS:
+        if cfg.NUM_GPUS:
         #     torch.cuda.set_device(torch.device("cpu:0"))
-        #     self.gpu_id = (
-        #         torch.cuda.current_device() if gpu_id is None else gpu_id
-        #     )
+            self.gpu_id = (
+                torch.cuda.current_device() if gpu_id is None else gpu_id
+            )
 
         # Build the video model and print model statistics.
         self.model = build_model(cfg, gpu_id=gpu_id)

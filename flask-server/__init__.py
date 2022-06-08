@@ -89,24 +89,28 @@ def detect():
         source_path = request.form.get("source")
     else:
         source_path = request.args.get("source")
-
     source_path = source_path
-    if not os.path.exists("input/"+source_path):
-        abort(404)
-    cap = cv2.VideoCapture("input/"+source_path)
-    fps = int(cap.get(cv2.CAP_PROP_FPS))
-    display_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-    display_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    # if not os.path.exists("input/"+source_path):
+    #     abort(404)
+    # cap = cv2.VideoCapture("input/"+source_path)
+    # fps = int(cap.get(cv2.CAP_PROP_FPS))
+    # display_width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    # display_height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    # info = {
+    #     "fps": fps,
+    #     "width": display_width,
+    #     "height": display_height
+    # }
     info = {
-        "fps": fps,
-        "width": display_width,
-        "height": display_height
+        "fps": 12,
+        "width": 112,
+        "height": 112
     }
+
     print("<video info> fps:{};load in {}".format(12, source_path))
     queue = source_manager.get_or_create(source_path, info)
     print(queue)
     print(queue.state)
-
     return {
         "info": info,
         "state": queue.state.name,

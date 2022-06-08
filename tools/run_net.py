@@ -11,7 +11,6 @@ from tools.test_net import test
 from tools.train_net import train
 from tools.visualization import visualize
 
-
 def main(source_path=None, task_queue=None):
     """
     Main function to spawn the train and test process.
@@ -21,14 +20,14 @@ def main(source_path=None, task_queue=None):
     cfg = load_config(args)
     cfg = assert_and_infer_cfg(cfg)
 
-    # 动态设置视频输入源
-    if source_path is not None:
-        cfg.WEBCAM = -1
-        cfg.DEMO.INPUT_VIDEO = source_path
-
-    if source_path == '0':
-        cfg.WEBCAM = 1
-        print("run_net:on webcam {}".format(source_path))
+    # # 动态设置视频输入源
+    # if source_path is not None:
+    #     cfg.WEBCAM = -1
+    #     cfg.DEMO.INPUT_VIDEO = source_path
+    #
+    # if source_path == '0':
+    #     cfg.WEBCAM = 1
+    #     print("run_net:on webcam {}".format(source_path))
 
     # Perform training.
     if cfg.TRAIN.ENABLE:

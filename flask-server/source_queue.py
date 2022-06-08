@@ -131,6 +131,8 @@ class SourceManager:
                     # 二次打开摄像头，就关闭摄像头
                     self.source_map[source].process_task.cancel()
                 except BaseException:
+                    print('出现错误，未能关闭摄像头。')
+                finally:
                     return self.source_map[source]
 
             queue = self.source_map[source]
